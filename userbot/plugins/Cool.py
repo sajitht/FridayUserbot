@@ -1,4 +1,4 @@
-# Original written by @Hackintush
+# Original written by @Sajith
 """Available Commands:
 .slash
 .para
