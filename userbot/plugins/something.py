@@ -26,8 +26,8 @@ async def test(event):
 *🌴╬═🌴╬╬🌴╬╬🌴═╬╬═🌴*╬╬🌴""")  
     
     
- @borg.on(admin_cmd(pattern=r"some1"))
- async def test(event):
+@borg.on(admin_cmd(pattern=r"some1"))
+async def test(event):
     if event.fwd_from:
         return 
     await event.edit("""✷        ·
@@ -39,8 +39,8 @@ async def test(event):
    · ✵""")    
     
     
- @borg.on(admin_cmd(pattern=r"some2"))
- async def test(event):
+@borg.on(admin_cmd(pattern=r"some2"))
+async def test(event):
     if event.fwd_from:
         return 
     await event.edit("""┊┊┊┊⋆ ✧    ·   ✧ ✵
@@ -49,7 +49,18 @@ async def test(event):
 ┊┊* . * ✦
 ┊☆ ° ✧    ·
 ★*""")    
-        
+
+
+
+       
+@borg.on(admin_cmd(pattern=r"bday"))
+async def test(event):
+    if event.fwd_from:
+        return 
+    await event.edit("""♪ღ♪*•.¸¸.•*¨¨*•.♪ღ♪*•.¸¸.•*¨¨*•.♪ღ♪
+░H░A░P░P░Y░♪
+░B░I░R░T░H░D░A░Y░
+♪ღ♪*•.¸¸.•*¨¨*•.♪ღ♪*•.¸¸.•*¨¨*•.♪ღ♪""")     
     
     
 @borg.on(admin_cmd(pattern=r"icc"))
