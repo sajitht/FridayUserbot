@@ -5,7 +5,6 @@ Available Commands:
 
 import emoji
 from deep_translator import GoogleTranslator
-from fridaybot import CMD_HELP
 from fridaybot.utils import edit_or_reply, friday_on_cmd, sudo_cmd
 from langdetect import detect
 
@@ -48,10 +47,3 @@ async def _(event):
         await edit_or_reply(event, str(exc))
 
 
-CMD_HELP.update(
-    {
-        "translate": "**Translate**\
-\n\n**Syntax : **`.tr <language Code> <reply to text>`\
-\n**Usage :** Translates the given text into your language."
-    }
-)
