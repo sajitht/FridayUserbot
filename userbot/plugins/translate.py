@@ -3,13 +3,11 @@ Available Commands:
 .tr LanguageCode as reply to a message
 .tr LangaugeCode | text to translate"""
 
+import emoji
 from deep_translator import GoogleTranslator
-from googletrans import LANGUAGES
-from langdetect import detect
-from google_trans_new import google_translator
-import requests
 from fridaybot import CMD_HELP
 from fridaybot.utils import edit_or_reply, friday_on_cmd, sudo_cmd
+from langdetect import detect
 
 
 @friday.on(friday_on_cmd("tr ?(.*)"))
@@ -23,40 +21,32 @@ async def _(event):
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         text = previous_message.message
-        lan = input_str or "en"
+        lan = input_str or "gu"
     elif "|" in input_str:
         lan, text = input_str.split("|")
     else:
         await edit_or_reply(event, "`.tr LanguageCode` as reply to a message")
         return
-
+    text = emoji.demojize(text.strip())
     lan = lan.strip()
     try:
-        translator = google_translator()
-        translated = translator.translate(text ,lang_tgt=lan)
-        lmao_bruh = text
+        
         lmao = detect(text)
         after_tr_text = lmao
-        source_lan = LANGUAGES[after_tr_text]
-        transl_lan = LANGUAGES[lan]
-        output_str = f"""**TRANSLATED SUCCESSFULLY**
-**Source ({source_lan})**:
-`{text}`
+        to_translate = text
 
-**Translation ({transl_lan})**:
-`{translated}`"""
+        translated = GoogleTranslator(source='auto', target=lan).translate(to_translate)
       
-        if len(output_str) >= 4096:
-            out_file = output_str
-            url = "https://del.dog/documents"
-            r = requests.post(url, data=out_file.encode("UTF-8")).json()
-            url2 = f"https://del.dog/{r['key']}"
-            starky = f"Translated Text Was Too Big, Never Mind I Have Pasted It [Here]({url2})"
-        else:
-            starky = output_str
-        await edit_or_reply(event, starky)
-    except Exception as e:
-      print(e)
+        output_str = """**Translated By FridayUserbot** 
+         Source **( {} )**
+         Translation **( {} )**
+         {}""".format(
+            after_tr_text, lan, translated
+        )
+        await edit_or_reply(event, output_str)
+    except Exception as exc:
+        await edit_or_reply(event, str(exc))
+
 
 CMD_HELP.update(
     {
